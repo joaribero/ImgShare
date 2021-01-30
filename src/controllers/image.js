@@ -10,25 +10,52 @@ ctrl.index = (req,res) => {
 
 };
 
-ctrl.create = async (req,res) => {
-    const imgUrl = randomNumber();
-    console.log(imgUrl);
-    const imageTempPath = req.file.path;
-    const ext = path.extname(req.file.originalname).toLowerCase();
-    const targetPath = path.resolve(`src/public/upload/${imgUrl}${ext}`);
+ctrl.create = (req,res) => {
+    //Creo una funcion recursiva, para no repetir nombres.
+    const saveImage = async () => {
+        const imgUrl = randomNumber();
+        const images = await Image.find({fileName: imgUrl});
+        
+        //Si el nombre random ya existe, vuelvo a ejectura la funcion hasta que no se vuelva a repetir
+        if (images.lenght > 0) {           
+            saveImage();
 
-    if (ext === '.png' || ext === '.jpg' || ext === '.jpeg' || ext === '.gif') {
-        await fs.rename(imageTempPath,targetPath);
-        const newImg = new Image({
-            title: req.body.title,
-            description: req.body.description,
-            fileName: imgUrl+ ext
-        });
-        const imagedSave = await newImg.save();
-        console.log(imagedSave);
-    };
+        } else { //el nombre no existe, continuo con el guardado.
+            console.log(imgUrl);
+        
+            const imageTempPath = req.file.path;
+            const ext = path.extname(req.file.originalname).toLowerCase();
+            const targetPath = path.resolve(`src/public/upload/${imgUrl}${ext}`);
 
-    res.send('Works')
+            //Valido que la extensión del archivo sea de una imagen.
+            if (ext === '.png' || ext === '.jpg' || ext === '.jpeg' || ext === '.gif') {
+                
+                //Modifico la ruta de la imagen, de temp a upload
+                await fs.rename(imageTempPath,targetPath);
+                
+                //Creo el objeto Image para mongo y después poder almacenarlo.
+                const newImg = new Image({
+                    title: req.body.title,
+                    description: req.body.description,
+                    fileName: imgUrl+ ext
+                });
+                
+                const imagedSave = await newImg.save();
+                
+                //res.redirect('/images');
+                res.send('Works')
+                
+            }else { //No es una imagen, elimino lo que se haya subido y respondo error.
+                
+                await fs.unlink(imageTempPath);
+                
+                res.status(500).json({error: 'Only images are allowed'});
+            }                   
+        }             
+    }
+    //El create inicia acá, ejecutando la funcion recursiva.
+    saveImage();
+
 };
 
 ctrl.like = (req,res) => {
