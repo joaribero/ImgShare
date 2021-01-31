@@ -6,8 +6,12 @@ const {Image} = require('../models');
 
 const ctrl = {};
 
-ctrl.index = (req,res) => {
-
+ctrl.index = async (req,res) => {
+    //Busco la imagen en la BDD con el nombre del parámetro. 
+    const image = await Image.findOne({fileName: {$regex: req.params.image_id}});
+    
+    //Renderizo la pagina y le envío el object para tener los datos.
+    res.render('image',{image});
 };
 
 ctrl.create = (req,res) => {
@@ -42,9 +46,8 @@ ctrl.create = (req,res) => {
                 
                 const imagedSave = await newImg.save();
                 
-                //res.redirect('/images');
-                res.send('Works')
-                
+                res.redirect('/images/' + imgUrl);
+
             }else { //No es una imagen, elimino lo que se haya subido y respondo error.
                 
                 await fs.unlink(imageTempPath);
