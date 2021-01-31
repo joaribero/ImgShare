@@ -2,12 +2,18 @@ const path = require('path');
 const { randomNumber } = require('../helpers/libs');
 const helpers = require('../helpers/libs');
 const fs = require('fs-extra');
-const {Image} = require('../models');
+const md5 = require('md5');
+
+const {Image,Comment} = require('../models');
 
 const ctrl = {};
 
-ctrl.index = (req,res) => {
-
+ctrl.index = async (req,res) => {
+    //Busco la imagen en la BDD con el nombre del parámetro. 
+    const image = await Image.findOne({fileName: {$regex: req.params.image_id}});
+    
+    //Renderizo la pagina y le envío el object para tener los datos.
+    res.render('image',{image});
 };
 
 ctrl.create = (req,res) => {
@@ -42,9 +48,8 @@ ctrl.create = (req,res) => {
                 
                 const imagedSave = await newImg.save();
                 
-                //res.redirect('/images');
-                res.send('Works')
-                
+                res.redirect('/images/' + imgUrl);
+
             }else { //No es una imagen, elimino lo que se haya subido y respondo error.
                 
                 await fs.unlink(imageTempPath);
@@ -62,7 +67,21 @@ ctrl.like = (req,res) => {
     
 };
 
-ctrl.comment = (req,res) => {
+ctrl.comment = async (req,res) => {
+    //Busco la imagen en BDD que tenga el nombre.
+    const image = await Image.findOne({fileName: {$regex: req.params.image_id}});
+    
+    //Si existe la imagen, continuo el proceso de guardar el comentario.
+    if (image) {
+        const newComment = new Comment(req.body);
+        newComment.gravatar = md5(newComment.email);
+        newComment.image_id = image._id;
+        
+        newComment.save();
+
+        res.redirect('/images/'+ image.uniqueId);
+    }
+    
     
 };
 
