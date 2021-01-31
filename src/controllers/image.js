@@ -2,7 +2,9 @@ const path = require('path');
 const { randomNumber } = require('../helpers/libs');
 const helpers = require('../helpers/libs');
 const fs = require('fs-extra');
-const {Image} = require('../models');
+const md5 = require('md5');
+
+const {Image,Comment} = require('../models');
 
 const ctrl = {};
 
@@ -65,7 +67,21 @@ ctrl.like = (req,res) => {
     
 };
 
-ctrl.comment = (req,res) => {
+ctrl.comment = async (req,res) => {
+    //Busco la imagen en BDD que tenga el nombre.
+    const image = await Image.findOne({fileName: {$regex: req.params.image_id}});
+    
+    //Si existe la imagen, continuo el proceso de guardar el comentario.
+    if (image) {
+        const newComment = new Comment(req.body);
+        newComment.gravatar = md5(newComment.email);
+        newComment.image_id = image._id;
+        
+        newComment.save();
+
+        res.redirect('/images/'+ image.uniqueId);
+    }
+    
     
 };
 
