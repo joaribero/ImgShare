@@ -11,9 +11,12 @@ const ctrl = {};
 ctrl.index = async (req,res) => {
     //Busco la imagen en la BDD con el nombre del parámetro. 
     const image = await Image.findOne({fileName: {$regex: req.params.image_id}});
+
+    //Busco los comentaros de esa imagen.
+    const comments = await Comment.find({image_id: image._id});
     
     //Renderizo la pagina y le envío el object para tener los datos.
-    res.render('image',{image});
+    res.render('image',{image, comments});
 };
 
 ctrl.create = (req,res) => {
@@ -22,7 +25,7 @@ ctrl.create = (req,res) => {
         const imgUrl = randomNumber();
         const images = await Image.find({fileName: imgUrl});
         
-        //Si el nombre random ya existe, vuelvo a ejectura la funcion hasta que no se vuelva a repetir
+        //Si el nombre random ya existe, vuelvo a ejectur la funcion hasta que no se vuelva a repetir
         if (images.lenght > 0) {           
             saveImage();
 
