@@ -9,14 +9,30 @@ const {Image,Comment} = require('../models');
 const ctrl = {};
 
 ctrl.index = async (req,res) => {
+    //ViewModel que voy a enviar a la vista.
+    const viewModel = {image: {}, comments: {}};
+    
     //Busco la imagen en la BDD con el nombre del parámetro. 
     const image = await Image.findOne({fileName: {$regex: req.params.image_id}});
-
-    //Busco los comentaros de esa imagen.
-    const comments = await Comment.find({image_id: image._id});
     
-    //Renderizo la pagina y le envío el object para tener los datos.
-    res.render('image',{image, comments});
+    //Verifico que exista la imagen
+    if (image){
+        //Incremento las vistas cada vez que ingreso.
+        image.views = image.views + 1;
+        viewModel.image = image;
+        await image.save()
+
+        //Busco los comentaros de esa imagen.
+        const comments = await Comment.find({image_id: image._id});
+        viewModel.comments = comments;
+
+        //Renderizo la pagina y le envío el object para tener los datos.
+        res.render('image',viewModel);
+    } else {
+        res.redirect('/');
+    }
+
+    
 };
 
 ctrl.create = (req,res) => {
@@ -84,7 +100,9 @@ ctrl.comment = async (req,res) => {
 
         res.redirect('/images/'+ image.uniqueId);
     }
-    
+    else {
+        res.redirect('/');
+    }
     
 };
 
