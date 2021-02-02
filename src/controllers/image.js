@@ -46,7 +46,6 @@ ctrl.create = (req,res) => {
             saveImage();
 
         } else { //el nombre no existe, continuo con el guardado.
-            console.log(imgUrl);
         
             const imageTempPath = req.file.path;
             const ext = path.extname(req.file.originalname).toLowerCase();
@@ -82,8 +81,21 @@ ctrl.create = (req,res) => {
 
 };
 
-ctrl.like = (req,res) => {
+ctrl.like = async (req,res) => {
+    //Busco la imagen por el id que viene en la url.
+    const image = await Image.findOne({fileName: {$regex: req.params.image_id}});
     
+    //Valdo que exista.
+    if (image){
+        //Aumento el contador de likes y guardo en BDD.
+        image.likes = image.likes + 1;
+        await image.save();
+        
+        //Retorno la cantidad de likes para mostrarlo mediante ajax.
+        res.json({likes: image.likes});  
+    } else {
+        res.status(500).json({error: 'Internal Error'});    
+    }
 };
 
 ctrl.comment = async (req,res) => {
@@ -106,8 +118,14 @@ ctrl.comment = async (req,res) => {
     
 };
 
-ctrl.remove = (req,res) => {
-    
+ctrl.remove = async (req,res) => {
+    const image = await Image.findOne({fileName: {$regex: req.params.image_id}});
+    if (image){
+        await fs.unlink(path.resolve('./src/public/upload/' + image.fileName));
+        await Comment.deleteOne({image_id: image._id});
+        await image.remove();
+        res.json(true);
+    }
 };
 
 module.exports = ctrl;
