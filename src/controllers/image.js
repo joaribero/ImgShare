@@ -5,12 +5,13 @@ const fs = require('fs-extra');
 const md5 = require('md5');
 
 const {Image,Comment} = require('../models');
+const sidebar = require('../helpers/sidebar');
 
 const ctrl = {};
 
 ctrl.index = async (req,res) => {
     //ViewModel que voy a enviar a la vista.
-    const viewModel = {image: {}, comments: {}};
+    let viewModel = {image: {}, comments: {}};
     
     //Busco la imagen en la BDD con el nombre del parámetro. 
     const image = await Image.findOne({fileName: {$regex: req.params.image_id}});
@@ -25,6 +26,9 @@ ctrl.index = async (req,res) => {
         //Busco los comentaros de esa imagen.
         const comments = await Comment.find({image_id: image._id});
         viewModel.comments = comments;
+
+        //Ejecuto sidebar y lo agrego al view model.
+        viewModel = await sidebar(viewModel);
 
         //Renderizo la pagina y le envío el object para tener los datos.
         res.render('image',viewModel);
