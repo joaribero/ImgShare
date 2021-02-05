@@ -1,17 +1,17 @@
-<div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center"> 
+<div class="card custom-card">
+    <div class="card-header d-flex justify-content-between align-items-center custom-card-h text-white"> 
         <h2>{{image.title}}</h2>
         <button class="btn btn-danger" id="btn-delete" data-id="{{image.uniqueId}}">
             <i class="fa fa-times"></i> Delete
         </button>      
     </div>
-    <div class="card-body">
+    <div class="card-body text-white">
         <p>{{image.description}}</p>
         <div class="text-center">
-            <img src="/public/upload/{{image.fileName}}" alt="" class="img-fluid">
+            <img src="/public/upload/{{image.fileName}}" alt="" class="img-fluid custom-img">
         </div>
     </div>
-    <div class="card-footer d-flex justify-content-between align-items-center">
+    <div class="card-footer d-flex justify-content-between align-items-center text-white">
         <button class="btn btn-success" id="btn-like" data-id="{{image.fileName}}">
             <i class="fas fa-thumbs-up"></i> Like
         </button>
@@ -28,10 +28,10 @@
     </div>
 </div>
 
-<div class="card mt-2">
-    <div class="card-header d-flex justify-content-between align-items-center">
+<div class="card mt-2 custom-card">
+    <div class="card-header d-flex justify-content-between align-items-center text-white custom-card-h">
         <h3>Comments</h3>
-        <button class="btn btn-info" id="btn-toggle-comment">
+        <button class="btn btn-custom text-white" id="btn-toggle-comment">
             <i class="fa fa-comment-o"></i> Post a comment
         </button>
     </div>
@@ -45,7 +45,7 @@
                     <input type="text" class="form-control" name="email" placeholder="Email">
                 </div>
                 <div class="form-group">
-                    <textarea name="comment" rows="2" class="form-control" placeholder="Add your comment here"></textarea>
+                    <textarea name="comment" rows="2" class="form-control custom-textarea" placeholder="Add your comment here"></textarea>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-success" id="btn-comment">
@@ -54,22 +54,30 @@
                 </div>
             </form>
         </blockquote>
-        <ul class="list-group p-4">
-            {{#each comments}}
-                <li class="list-group-item">
-                    <div class="row">
-                        <a href="" class="col-md-2 text-left">
-                            <img src="http://gravatar.com/avatar/{{gravatar}}?d=robohash&s=45" alt="" class="border border-dark shadow-lg">
-                        </a>
-                        <blockquote class="col-md-10">
-                            <p class="lead">{{comment}}</p>
-                            <footer class="blockquote-footer">
-                                {{name}} - {{timeAgo timestamp}}
-                            </footer>
-                        </blockquote>
+        <div class="container-comment">
+		    <div class="grid">
+                <div class="list">
+                    {{#each comments}}
+                    <div class="item-block">
+                        <span class="time text-white">{{timeAgo timestamp}}</span>
+                        <div class="box-shadow item-avatar">
+                            <div class="item-inner">
+                                <div class="img-box">
+                                    <img src="http://gravatar.com/avatar/{{gravatar}}?d=robohash&s=45">
+                                </div>
+                                <div class="name-box">
+                                    <span class="db name">{{name}}</span>
+                                    <span class="db tag">@User</span>
+                                </div>
+                            </div>
+                            <div class="comment">
+                                <span class="dib comment-text">{{comment}}</span>
+                            </div>
+                        </div>
                     </div>
-                </li>
-            {{/each}}
-        </ul>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -3,5 +3,55 @@
 }
 
 body {
-    background: #dcdde1;
+    background: #121212;
+    
+}
+
+.custom-card {
+    border-radius: 15px;
+    border: none;
+    background-color: rgba(245, 245, 245, 0.1);
+}
+
+.custom-card-h {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background: #1f2933;
+}
+
+.custom-img {
+    border-radius: 10px;
+}
+
+.navbar-custom {
+    background-color: #1f2933;
+}
+
+.container-fluid.custom {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.btn.btn-custom {
+    background: #486581;
+    border-color:  #486581;
+}
+
+.btn-custom:hover {
+    background: #627D98;
+}
+
+.btn {
+    border-radius: 25px;
+}
+
+input[type="text"], input[type="file"], textarea {
+
+    background-color :  rgba(245, 245, 245, 0.2);
+    border: none; 
+}
+
+.custom-textarea {
+    background-color :  rgba(245, 245, 245, 0.2);
+    border: none;
 }
