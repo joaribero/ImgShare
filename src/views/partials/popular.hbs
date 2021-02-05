@@ -1,13 +1,13 @@
-<div class="card mb-2">
-    <div class="card-header bg-dark text-white">
+<div class="card mb-3 custom-card">
+    <div class="card-header text-white custom-card-h">
         <h5><i class="fas fa-fire"></i> Most popular</h5>
     </div>
     <div class="card-body">
         <div class="row">
             {{#each sidebar.popular}}
-                <div class="col-md-4">
+                <div class="col-md-4 mb-1">
                     <a href="/images/{{uniqueId}}">
-                        <img src="/public/upload/{{fileName}}" class="w-100 h-100 image-thumbnail" alt="">
+                        <img src="/public/upload/{{fileName}}" class="w-100 h-100 image-thumbnail custom-img" alt="">
                     </a>
                 </div>
             {{/each}}
