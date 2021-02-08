@@ -38,6 +38,41 @@ $('#btn-toggle-comment').click(e =>{
 
 //Muestro nombre del file al subirlo.
 $('.custom-file-input').on('change',function(){
-    var fileName = document.getElementById("inputGroupFile").files[0].name;
-    $(this).next('.form-control-file').addClass("selected").html(fileName);
-  })
+    const file = document.getElementById("inputGroupFile").files[0]
+    if (file){
+        var fileName = file.name;
+        $(this).next('.form-control-file').addClass("selected").html(fileName);
+    }
+})
+
+//Image Preview
+const inpFile = document.getElementById("inputGroupFile");
+const previewContainer = document.getElementById("imagePreview");
+const previewImage = previewContainer.querySelector(".image-preview__image");
+const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
+
+previewContainer.style.display = "none";
+
+inpFile.addEventListener("change", function(){
+    const file = this.files[0];
+    
+    if (file) {
+        const reader = new FileReader();
+
+        previewDefaultText.style.display = "none";
+        previewImage.style.display= "block";
+
+        reader.addEventListener("load", function(){
+            previewImage.setAttribute("src", this.result);
+        });
+
+        reader.readAsDataURL(file);
+        $('#imagePreview').slideToggle();
+
+    } else {
+        previewDefaultText.style.display = "block";
+        previewImage.style.display= "none";
+        previewImage.setAttribute("src","");
+        $('#imagePreview').hide();
+    }
+});

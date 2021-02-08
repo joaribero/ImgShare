@@ -27,9 +27,9 @@ module.exports = app => {
     app.set('view engine','.hbs');
     
     //Middlewares
-    app.use(morgan('dev'));
+    app.use(morgan('dev')); //morgan para el log
 
-    app.use(multer({
+    app.use(multer({  //multer para subir archivos de forma simple
         dest: path.join(__dirname, '../public/upload/temp')
     }).single('image'));
 

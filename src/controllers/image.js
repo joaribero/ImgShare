@@ -23,7 +23,7 @@ ctrl.index = async (req,res) => {
         viewModel.image = image;
         await image.save()
 
-        //Busco los comentaros de esa imagen.
+        //Busco los comentarios de esa imagen.
         const comments = await Comment.find({image_id: image._id});
         viewModel.comments = comments;
 
