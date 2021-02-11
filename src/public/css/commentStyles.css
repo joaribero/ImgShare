@@ -47,7 +47,7 @@
     box-shadow: 2px 2px 3px 1px rgba(0,0,0,.1);
 }
 .item-avatar {
-    padding: 30px;
+    padding: 20px;
     /*background: #121212;*/
     background-color: rgba(245, 245, 245, 0.2);
     border-radius: 15px;
@@ -58,8 +58,7 @@
 }
 .img-box {
     width: 70px;
-    height: 70px;
-    
+    height: 70px;  
 }
 .img-box img {
     width: 100%;
@@ -75,8 +74,15 @@
     font-weight: bold;
     color: white !important;
     font-size: 1.2em;
-    padding: 2px 0;
-    text-transform: uppercase;
+    padding: 1px 0;
+    /*text-transform: uppercase;*/
+    display: inline;
+}
+.name-box span.db.time {
+    display: inline;
+    color: #8b8989;
+    font-size: 1em;
+    text-transform: lowercase;
 }
 .name-box span.db.tag {
     color: white !important;

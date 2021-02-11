@@ -7,4 +7,8 @@ helpers.timeAgo = timestamp => {
     return moment(timestamp).startOf('minute').fromNow();
 };
 
+helpers.toUpper = text => {
+    return text.toUpperCase();
+}
+
 module.exports = helpers;
