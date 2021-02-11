@@ -7,6 +7,8 @@ const routes = require('../routes/index');
 const errorHandler = require('errorhandler');
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 const Handlebars = require('handlebars');
+const passport = require('passport');
+const session = require('express-session');
 
 module.exports = app => {
     
@@ -38,6 +40,13 @@ module.exports = app => {
     }));
 
     app.use(express.json());
+    app.use(session({
+        secret: 'jribero',
+        resave: false,
+        saveUninitialized: false
+    }));
+    app.use(passport.initialize());
+    app.use(passport.session());
 
     //Routes
     routes(app);

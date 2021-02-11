@@ -12,15 +12,20 @@
   "license": "ISC",
   "dependencies": {
     "@handlebars/allow-prototype-access": "^1.0.3",
+    "bcrypt-nodejs": "0.0.3",
+    "connect-flash": "^0.1.1",
     "errorhandler": "^1.5.1",
     "express": "^4.17.1",
     "express-handlebars": "^5.2.0",
+    "express-session": "^1.17.1",
     "fs-extra": "^9.1.0",
     "md5": "^2.3.0",
     "moment": "^2.29.1",
     "mongoose": "^5.11.13",
     "morgan": "^1.10.0",
-    "multer": "^1.4.2"
+    "multer": "^1.4.2",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
