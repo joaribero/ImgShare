@@ -1,14 +1,16 @@
-
+const passport = require('passport');
 const ctrl = {};
+require('../passport/local-auth');
 
 ctrl.signupPage = async (req,res,next) => {
     res.render('signup');
 };
 
-ctrl.signup = async (req,res,next) => {
-    console.log(req.body)
-    res.send('Received');
-};
+ctrl.signup = passport.authenticate('local-signup', {
+    successRedirect: '/',
+    failureRedirect:'/signup',
+    passReqToCallback: true
+}); 
 
 ctrl.signinPage = async (req,res,next) => {
 
