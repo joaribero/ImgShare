@@ -1,4 +1,5 @@
 const helpers = {};
+const bcrypt = require('bcrypt-nodejs');
 
 //función randomNumber (para los nombres de los archivos)
 helpers.randomNumber = () => {
@@ -12,5 +13,6 @@ helpers.randomNumber = () => {
     }
     return randomNumber;
 };
+
 
 module.exports = helpers;

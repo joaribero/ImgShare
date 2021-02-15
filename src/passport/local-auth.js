@@ -1,5 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const helpers = require('../helpers/libs');
 
 const User =  require('../models/userViewModel');
 
@@ -29,6 +30,9 @@ passport.use('local-signup',new LocalStrategy({
         const newUser = new User();
         newUser.username = username;
         newUser.password = newUser.encryptPassword(password);
+        newUser.email = req.body.email;
+        console.log(req.body);
+        newUser.appId = 1; //declaro que se logueo directamente en la pagina (para posible feature social media login)
         await newUser.save();
         done(null, newUser);
     }
@@ -40,12 +44,17 @@ passport.use('local-signin', new LocalStrategy({
     passwordField: 'password',
     passReqToCallback: true
 }, async (req, username, password, done) => {
-    const user = User.findOne({username: username});
+    // busco el user por username
+    const user = await User.findOne({username: username});
     if (!user){
-        return done(null, false, req.flash('signinMessage','No user found.'));
+        //El username no existe
+        return done(null, false, req.flash('LoginMessage','No user found.'));      
     }
-    if (!user.comparePassword(password)){
-        return done(null, false, req.flash('signinMessage','Incorrect Password'));
+    const validPassword = await user.validatePassword(password);
+    if (!validPassword){
+        //El username existe, pero la contraseña es incorrecta.
+        return done(null, false, req.flash('LoginMessage','Incorrect Password'));
     }
+    //Username y contraseña coinciden.
     done(null, user);
 } ));
