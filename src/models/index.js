@@ -1,4 +1,4 @@
 module.exports = {
-    Image: require('./image'),
-    Comment: require('./comment')
+    Image: require('./imageViewModel'),
+    Comment: require('./commentViewModel')
 };

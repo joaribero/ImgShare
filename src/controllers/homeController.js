@@ -1,7 +1,7 @@
 const ctrl = {};
 const {Image} =require('../models');
 const sidebar = require('../helpers/sidebar');
-const image = require('../models/image');
+const image = require('../models/imageViewModel');
 
 ctrl.index = async (req,res) => {
     //obtengo todas las imagenes de BDD, ordenadas ascendentes (=1)

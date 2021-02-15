@@ -9,6 +9,7 @@ const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-ac
 const Handlebars = require('handlebars');
 const passport = require('passport');
 const session = require('express-session');
+const flash = require('connect-flash');
 
 module.exports = app => {
     
@@ -45,8 +46,17 @@ module.exports = app => {
         resave: false,
         saveUninitialized: false
     }));
+
+    app.use(flash()); // connect-flash
+
     app.use(passport.initialize());
     app.use(passport.session());
+
+    app.use((req, res, next) => {
+        app.locals.signupMessage = req.flash('signupMessage');
+        app.locals.loginMessage = req.flash('LoginMessage');
+        next();
+    });
 
     //Routes
     routes(app);

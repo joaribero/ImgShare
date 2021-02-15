@@ -1,3 +1,9 @@
+//Auto-closing alerts
+setTimeout(function() {
+    //$(".alert").alert('close'),
+    $(".flash").hide("slow") 
+}, 4000);
+
 // Evento LIKE
 $('#btn-like').click(function(e) {
     e.preventDefault();
@@ -76,3 +82,4 @@ inpFile.addEventListener("change", function(){
         $('#imagePreview').hide();
     }
 });
+
