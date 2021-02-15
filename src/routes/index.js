@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const home = require('../controllers/home');
-const image = require('../controllers/image');
-const auth = require('../controllers/auth');
+const home = require('../controllers/homeController');
+const image = require('../controllers/imageController');
+const auth = require('../controllers/authController');
 
 module.exports = app => {
     router.get('/',home.index);

@@ -13,7 +13,7 @@ ctrl.signup = passport.authenticate('local-signup', {
 }); 
 
 ctrl.signinPage = async (req,res,next) => {
-
+    res.render('signin');
 };
 
 ctrl.signin = async (req,res,next) => {
