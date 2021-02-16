@@ -35,25 +35,11 @@ body {
 .btn.btn-custom {
     background: #486581;
     border-color:  #486581;
+    border-radius: 25px;
 }
 
 .btn-custom:hover {
     background: #627D98;
-}
-
-.btn {
-    border-radius: 25px;
-}
-
-input[type="text"], input[type="file"], textarea {
-
-    background-color :  rgba(245, 245, 245, 0.2);
-    border: none; 
-}
-
-.custom-textarea {
-    background-color :  rgba(245, 245, 245, 0.2);
-    border: none;
 }
 
 .image-preview {
