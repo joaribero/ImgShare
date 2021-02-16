@@ -9,6 +9,11 @@ helpers.timeAgo = timestamp => {
 
 helpers.toUpper = text => {
     return text.toUpperCase();
-}
+};
+
+helpers.equals = (arg1, arg2) => {
+    console.log(arg1 == arg2);
+    return arg1 == arg2;
+};
 
 module.exports = helpers;

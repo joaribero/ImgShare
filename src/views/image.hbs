@@ -1,9 +1,11 @@
 <div class="card custom-card">
     <div class="card-header d-flex justify-content-between align-items-center custom-card-h text-white"> 
         <h2>{{image.title}}</h2>
+        {{#if (equals image.user user.id)}}
         <button class="btn btn-danger" id="btn-delete" data-id="{{image.uniqueId}}">
             <i class="fa fa-times"></i> Delete
-        </button>      
+        </button>
+        {{/if}}      
     </div>
     <div class="card-body text-white">
         <p>{{image.description}}</p>

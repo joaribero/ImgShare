@@ -31,8 +31,8 @@ passport.use('local-signup',new LocalStrategy({
         newUser.username = username;
         newUser.password = newUser.encryptPassword(password);
         newUser.email = req.body.email;
-        console.log(req.body);
-        newUser.appId = 1; //declaro que se logueo directamente en la pagina (para posible feature social media login)
+        newUser.firstName = req.body.firstName;
+        newUser.lastName = req.body.lastName;
         await newUser.save();
         done(null, newUser);
     }

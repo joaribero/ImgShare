@@ -8,7 +8,11 @@ const ImageSchema = new Schema({
     fileName: {type: String},
     views: {type: Number, default: 0},
     likes: {type: Number, default: 0},
-    timestamp: {type: Date, default: Date.now}
+    timestamp: {type: Date, default: Date.now},
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users'
+    }
 });
 
 ImageSchema.virtual('uniqueId')

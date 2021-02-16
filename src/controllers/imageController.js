@@ -4,15 +4,18 @@ const helpers = require('../helpers/libs');
 const fs = require('fs-extra');
 const md5 = require('md5');
 
-const {Image,Comment} = require('../models');
+const {Image,Comment,User} = require('../models');
 const sidebar = require('../helpers/sidebar');
 
 const ctrl = {};
 
 ctrl.index = async (req,res) => {
-    //ViewModel que voy a enviar a la vista.
-    let viewModel = {image: {}, comments: {}};
     
+    const user = await User.findById(req.session.passport.user)
+
+    //ViewModel que voy a enviar a la vista.
+    let viewModel = {image: {}, comments: {}, user};
+
     //Busco la imagen en la BDD con el nombre del parámetro. 
     const image = await Image.findOne({fileName: {$regex: req.params.image_id}});
     
@@ -65,7 +68,8 @@ ctrl.create = (req,res) => {
                 const newImg = new Image({
                     title: req.body.title,
                     description: req.body.description,
-                    fileName: imgUrl+ ext
+                    fileName: imgUrl+ ext,
+                    user: req.session.passport.user
                 });
                 
                 const imagedSave = await newImg.save();
