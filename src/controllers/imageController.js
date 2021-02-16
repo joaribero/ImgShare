@@ -127,12 +127,19 @@ ctrl.comment = async (req,res) => {
 };
 
 ctrl.remove = async (req,res) => {
+    //Busco la imagen por el nombre del archivo.
     const image = await Image.findOne({fileName: {$regex: req.params.image_id}});
+    
+    //Verifico que exista la imagen
     if (image){
-        await fs.unlink(path.resolve('./src/public/upload/' + image.fileName));
-        await Comment.deleteOne({image_id: image._id});
-        await image.remove();
-        res.json(true);
+
+        //Controlo que el usuario que esté haciendo el request sea el dueño de la imagen.
+        if (image.user == req.session.passport.user){
+            await fs.unlink(path.resolve('./src/public/upload/' + image.fileName));
+            await Comment.deleteOne({image_id: image._id});
+            await image.remove();
+            res.json(true);
+        }
     }
 };
 
