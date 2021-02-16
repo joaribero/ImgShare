@@ -10,6 +10,14 @@ const Handlebars = require('handlebars');
 const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash');
+const MongoStore = require('connect-mongo')(session);
+const mongoose = require('mongoose');
+const {database} = require('../keys');
+
+mongoose.connect(database.URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 
 module.exports = app => {
     
@@ -44,7 +52,10 @@ module.exports = app => {
     app.use(session({
         secret: 'jribero',
         resave: false,
-        saveUninitialized: false
+        saveUninitialized: false,
+        store: new MongoStore({
+            mongooseConnection: mongoose.connection
+        })
     }));
 
     app.use(flash()); // connect-flash

@@ -22,4 +22,9 @@ ctrl.signin = passport.authenticate('local-signin',{
     passReqToCallback: true
 });
 
+ctrl.logOut = async (req, res, next) => {
+    await req.logout();
+    res.redirect('/');
+};
+
 module.exports = ctrl;
