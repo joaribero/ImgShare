@@ -15,7 +15,7 @@
                         <blockquote class="w-100 p-1">
                             <p>{{comment}}</p>
                             <footer class="blockquote-footer">
-                                <span>{{name}}</span>
+                                {{#each comments.usern}}<span>{{firstName}}</span>{{/each}}
                                 <span>{{timeAgo timestamp}}</span>
                             </footer>
                         </blockquote>
