@@ -16,6 +16,7 @@ module.exports = app => {
     router.post('/images/:image_id/like', isLoggedIn, image.like);
     router.post('/images/:image_id/comment', isLoggedIn, image.comment);
     router.delete('/images/:image_id', isLoggedIn, image.remove);
+    router.get('/images/:image_id/isliked',isLoggedIn, image.isLiked);
     
     // Para registrarse o loguearse, no debe estar logueado previamente. 
     router.get('/signup', isNotLoggedIn, auth.signupPage);

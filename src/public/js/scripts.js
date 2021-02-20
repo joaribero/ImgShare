@@ -1,8 +1,26 @@
+currLoc = $(location).attr('href');
+var isLiked = false;
+
 //Auto-closing alerts
 setTimeout(function() {
     //$(".alert").alert('close'),
     $(".flash").hide("slow") 
 }, 4000);
+
+//Showing likes
+if (currLoc.includes('/images')){
+    $(document).ready(function(){
+        let imgId = $('#btn-like').data('id');
+        $.get('/images/'+ imgId + '/isliked')
+            .done(data => {
+                isLiked = data.liked;
+                if (isLiked === true){
+                    console.log('entro aca');
+                    $('#btn-like').addClass("heart");
+                }
+            });
+    });
+};
 
 // Evento LIKE
 $('#btn-like').click(function(e) {
@@ -13,6 +31,16 @@ $('#btn-like').click(function(e) {
         .done(data => {
             $('.likes-count').text(data.likes);
         });
+    $.get('/images/'+ imgId + '/isliked')
+    .done(data => {
+        isLiked = data.liked
+        if (isLiked){
+            $(this).addClass("heart");
+        }
+        else {
+            $(this).removeClass("heart");
+        }
+    });
 });
 
 //Evento DELETE

@@ -4,7 +4,7 @@ const helpers = require('../helpers/libs');
 const fs = require('fs-extra');
 const md5 = require('md5');
 
-const {Image,Comment,User} = require('../models');
+const {Image,Comment,User,Like} = require('../models');
 const sidebar = require('../helpers/sidebar');
 
 const ctrl = {};
@@ -102,16 +102,52 @@ ctrl.like = async (req,res) => {
     
     //Valdo que exista.
     if (image){
-        //Aumento el contador de likes y guardo en BDD.
-        image.likes = image.likes + 1;
-        await image.save();
-        
-        //Retorno la cantidad de likes para mostrarlo mediante ajax.
-        res.json({likes: image.likes});  
+        //Busco en la collection si el usuario ya habia dado like a la imagen.
+        const isLiked = await Like.findOne({user: req.user.id, image: image.id})
+        //Si no encontré nada es porque no lo hizo.
+        if (!isLiked) {
+            //Aumento el contador de likes y guardo en BDD.
+            image.likes = image.likes + 1;
+            await image.save();
+
+            const liked = new Like({
+                user: req.user.id,
+                image: image.id
+            });
+
+            await liked.save();
+            //Retorno la cantidad de likes para mostrarlo mediante ajax.         
+        }else {
+            //Encontré el like, pero quiero eliminarlo
+            image.likes = image.likes - 1;
+            await image.save();
+            await isLiked.remove();
+        }
+        res.json({likes: image.likes});     
     } else {
         res.status(500).json({error: 'Internal Error'});    
     }
 };
+
+ctrl.isLiked = async (req,res) => {
+    //Busco la imagen por el id que viene en la url.
+    const image = await Image.findOne({fileName: {$regex: req.params.image_id}});
+    
+    //Valdo que exista.
+    if (image){
+        //Busco en la collection si el usuario ya habia dado like a la imagen.
+        const isLiked = await Like.findOne({user: req.user.id, image: image.id})
+        //Si no encontré nada es porque no lo hizo.
+        if (isLiked) {
+            res.json({liked: true});
+        }else {
+            res.json({liked: false});
+        }
+    }else {
+        res.status(500).json({error: 'Internal Error'});
+    }
+    
+}
 
 ctrl.comment = async (req,res) => {
     //Busco la imagen en BDD que tenga el nombre.
