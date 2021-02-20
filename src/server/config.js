@@ -66,6 +66,7 @@ module.exports = app => {
     app.use((req, res, next) => {
         app.locals.signupMessage = req.flash('signupMessage');
         app.locals.loginMessage = req.flash('LoginMessage');
+        app.locals.errorMessage = req.flash('Error');
         next();
     });
 
