@@ -61,14 +61,14 @@
                             <div class="item-inner">
                                 <div class="img-box">
                                     <img src="http://gravatar.com/avatar/{{gravatar}}?d=robohash&s=45">
-                                </div>
+                                </div>                             
                                 <div class="name-box">
                                     <div class="style:left">
-                                        <span class="db name">{{getName user}}</span>
+                                        {{#each usern}}<span class="db name">{{firstName}}</span>{{/each}}
                                         <span class="db time"> - Commented {{timeAgo timestamp}}</span>
                                     </div>
-                                    <span class="db tag">@{{usern}}</span>
-                                </div>
+                                    {{#each usern}}<span class="db tag">@{{username}}</span>{{/each}}
+                                </div>                           
                             </div>
                             <div class="comment">
                                 <span class="dib comment-text">{{comment}}</span>

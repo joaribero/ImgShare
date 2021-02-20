@@ -33,7 +33,8 @@ ctrl.index = async (req,res) => {
         await image.save()
 
         //Busco los comentarios de esa imagen.
-        const comments = await Comment.find({image_id: image._id});
+        const comments = await Comment.find({image_id: image._id}).populate('usern');
+
         viewModel.comments = comments;
 
         //Ejecuto sidebar y lo agrego al view model.

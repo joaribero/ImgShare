@@ -24,13 +24,13 @@ CommentSchema.virtual('image')
         return this._image;
     });
 
-CommentSchema.virtual('usern')
-    .get(async function () {
-        const u = this.user;
-        const {username} = await currentUser.findById(u);
-        const display = username;
-        console.log(display);
-        return display;
-    });
+CommentSchema.virtual('usern',{
+    ref: 'users',
+    localField: 'user',
+    foreignField: '_id'
+});
+
+CommentSchema.set('toObject', {virtuals: true});
+CommentSchema.set('toJson', {virtuals: true});
 
 module.exports = model('Comment', CommentSchema);
