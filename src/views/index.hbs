@@ -5,14 +5,13 @@
     <div class="card-body">
         <div class="row">
             {{#each images}}
-            <div class="col-md-4 mb-2 custom-img">
+            <div class="mb-2 p-2 col-md-3 img-card">
                 <a href="/images/{{uniqueId}}">
-                    <img src="/public/upload/{{fileName}}" alt="" class="w-100 h-100 img-thumbnail custom-img">
+                    <img src="/public/upload/{{fileName}}" alt="" class="w-95 h-95 img-thumbnail custom-img">
                 </a>
             </div>
             {{/each}}
         </div>
-
     </div>
 </div>
 
@@ -31,7 +30,7 @@
             <div class="form-group">
                 <div class="input-group">
                     <div class="custom-file">
-                        <input type="file" name="image" class="custom-file-input" id="inputGroupFile"
+                        <input type="file" name="image" class="custom-file-input" id="inputGroupFile" accept=".gif,.jpeg,.jpg,.png"
                             aria-describedby="inputGroupFileAddon" required>
                         <label class="custom-file-label form-control-file" for="inputGroupFile">Choose file</label>
                     </div>

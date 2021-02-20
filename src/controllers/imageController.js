@@ -11,11 +11,17 @@ const ctrl = {};
 
 ctrl.index = async (req,res) => {
     
-    const user = await User.findById(req.session.passport.user)
+    let viewModel;
 
-    //ViewModel que voy a enviar a la vista.
-    let viewModel = {image: {}, comments: {}, user};
+    if (!(req.user === undefined)) {
+        const user = await User.findById(req.user.id)
 
+        //ViewModel que voy a enviar a la vista.
+        viewModel = {image: {}, comments: {}, user};
+    }else {
+        viewModel = {image: {}};
+    }
+    
     //Busco la imagen en la BDD con el nombre del parámetro. 
     const image = await Image.findOne({fileName: {$regex: req.params.image_id}});
     
@@ -79,8 +85,8 @@ ctrl.create = (req,res) => {
             }else { //No es una imagen, elimino lo que se haya subido y respondo error.
                 
                 await fs.unlink(imageTempPath);
-                
-                res.status(500).json({error: 'Only images are allowed'});
+                req.flash('Error', 'Only images are allowed.');
+                res.redirect('/');
             }                   
         }             
     }
@@ -112,9 +118,12 @@ ctrl.comment = async (req,res) => {
     
     //Si existe la imagen, continuo el proceso de guardar el comentario.
     if (image) {
-        const newComment = new Comment(req.body);
-        newComment.gravatar = md5(newComment.email);
-        newComment.image_id = image._id;
+        const newComment = new Comment({
+            gravatar: md5(req.user.email),
+            image_id: image._id,
+            user: req.user,
+            comment: req.body.comment
+        });
         
         newComment.save();
 
