@@ -11,11 +11,17 @@ const ctrl = {};
 
 ctrl.index = async (req,res) => {
     
-    const user = await User.findById(req.session.passport.user)
+    let viewModel;
 
-    //ViewModel que voy a enviar a la vista.
-    let viewModel = {image: {}, comments: {}, user};
+    if (!(req.user === undefined)) {
+        const user = await User.findById(req.user.id)
 
+        //ViewModel que voy a enviar a la vista.
+        viewModel = {image: {}, comments: {}, user};
+    }else {
+        viewModel = {image: {}};
+    }
+    
     //Busco la imagen en la BDD con el nombre del parámetro. 
     const image = await Image.findOne({fileName: {$regex: req.params.image_id}});
     
