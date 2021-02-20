@@ -30,17 +30,24 @@ $('#btn-like').click(function(e) {
     $.post('/images/'+ imgId + '/like')
         .done(data => {
             $('.likes-count').text(data.likes);
+            isLiked = data.isLiked;
+            if (isLiked === true){
+                $(this).addClass("heart");
+            }
+            else {
+                $(this).removeClass("heart");
+            }
         });
-    $.get('/images/'+ imgId + '/isliked')
-    .done(data => {
-        isLiked = data.liked
-        if (isLiked){
-            $(this).addClass("heart");
-        }
-        else {
-            $(this).removeClass("heart");
-        }
-    });
+    /*$.get('/images/'+ imgId + '/isliked')
+        .done(data => {
+            isLiked = data.liked
+            if (isLiked === true){
+                $(this).addClass("heart");
+            }
+            else {
+                $(this).removeClass("heart");
+            }
+        });*/
 });
 
 //Evento DELETE

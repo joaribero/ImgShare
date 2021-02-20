@@ -97,6 +97,8 @@ ctrl.create = (req,res) => {
 };
 
 ctrl.like = async (req,res) => {
+
+    let Liked;
     //Busco la imagen por el id que viene en la url.
     const image = await Image.findOne({fileName: {$regex: req.params.image_id}});
     
@@ -114,16 +116,19 @@ ctrl.like = async (req,res) => {
                 user: req.user.id,
                 image: image.id
             });
-
             await liked.save();
-            //Retorno la cantidad de likes para mostrarlo mediante ajax.         
+            
+            Liked = true;
         }else {
             //Encontré el like, pero quiero eliminarlo
             image.likes = image.likes - 1;
             await image.save();
             await isLiked.remove();
+
+            Liked = false;
         }
-        res.json({likes: image.likes});     
+        //Retorno la cantidad de likes para mostrarlo mediante ajax.  
+        res.json({likes: image.likes, isLiked: Liked});     
     } else {
         res.status(500).json({error: 'Internal Error'});    
     }
