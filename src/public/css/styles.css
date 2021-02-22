@@ -3,14 +3,16 @@
 }
 
 body {
-    background: #121212;
+    /*background: #121212;*/
+    background: rgb(31,42,42);
+    background: linear-gradient(0deg, rgba(31,42,42,1) 0%, rgba(67,111,129,1) 100%);
     
 }
 
 .custom-card {
     border-radius: 15px;
     border: none;
-    background-color: rgba(245, 245, 245, 0.1);
+    background-color: rgba(245, 245, 245, 0.2);
 }
 
 .custom-card-h {
@@ -71,6 +73,10 @@ body {
 }
 
 .heart i.fa-heart {
+    color: #f44336;
+}
+
+.heart1 i.fa-heart {
     color: #f44336;
 }
 
