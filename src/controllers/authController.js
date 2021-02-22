@@ -1,9 +1,14 @@
 const passport = require('passport');
 const ctrl = {};
 require('../passport/local-auth');
+const sidebar = require('../helpers/sidebar');
 
 ctrl.signupPage = async (req,res,next) => {
-    res.render('signup');
+    
+    let viewModel = {}; 
+    viewModel = await sidebar(viewModel);
+    
+    res.render('signup',viewModel);
 };
 
 ctrl.signup = passport.authenticate('local-signup', {
@@ -13,7 +18,11 @@ ctrl.signup = passport.authenticate('local-signup', {
 }); 
 
 ctrl.signinPage = async (req,res,next) => {
-    res.render('signin');
+    
+    let viewModel = {}; 
+    viewModel= await sidebar(viewModel);
+
+    res.render('signin',viewModel);
 };
 
 ctrl.signin = passport.authenticate('local-signin',{

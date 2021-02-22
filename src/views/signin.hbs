@@ -3,18 +3,24 @@
         <h3><i class="fas fa-user-circle"></i> SignIn</h3>
     </div>
     <div class="card-body">
-        <div class="col-md-6">
-            <form action="/signin" method="POST">
-                <div class="form-group">
-                    <input type="text" name="username" placeholder="Insert Username" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="password" name="password" placeholder="Insert Password" class="form-control">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success">Signup</button>
-                </div>  
-            </form>
-        </div>      
-    </div>  
+        <div class="row">
+            <div class="col-md-6">
+                <form action="/signin" method="POST">
+                    <div class="form-group">
+                        <input type="text" name="username" placeholder="Insert Username" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" placeholder="Insert Password" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">Signup</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <p class="text-white inline">Don't have an account yet? 
+                    <a href="/signup" class="btn btn-primary text-white">Create one!</a></p>
+            </div>
+        </div>
+    </div>
 </div>
