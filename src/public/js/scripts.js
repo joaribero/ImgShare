@@ -16,7 +16,8 @@ if (currLoc.includes('/images')){
                 isLiked = data.liked;
                 if (isLiked === true){
                     console.log('entro aca');
-                    $('#btn-like').addClass("heart");
+                    $('#btn-like').addClass("heart1");
+                    $('.p-like').addClass("heart");
                 }
             });
     });
@@ -32,22 +33,14 @@ $('#btn-like').click(function(e) {
             $('.likes-count').text(data.likes);
             isLiked = data.isLiked;
             if (isLiked === true){
-                $(this).addClass("heart");
+                $(this).addClass("heart1");
+                $('.p-like').addClass("heart");
             }
             else {
-                $(this).removeClass("heart");
+                $(this).removeClass("heart1");
+                $('.p-like').removeClass("heart");
             }
         });
-    /*$.get('/images/'+ imgId + '/isliked')
-        .done(data => {
-            isLiked = data.liked
-            if (isLiked === true){
-                $(this).addClass("heart");
-            }
-            else {
-                $(this).removeClass("heart");
-            }
-        });*/
 });
 
 //Evento DELETE
