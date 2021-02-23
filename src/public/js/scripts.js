@@ -111,3 +111,14 @@ inpFile.addEventListener("change", function(){
     }
 });
 
+//collapse
+$('.card-header').click(function(){
+    console.log('aca entro');
+    if ($('.card-header').hasClass("collapsed")) {
+        console.log('entro aca');
+        $('card-collapse-btn').text = '-';
+    }
+    else {
+        $('card-collapse-btn').text = '+';
+    }
+});
