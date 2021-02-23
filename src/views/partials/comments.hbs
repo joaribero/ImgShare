@@ -1,27 +1,29 @@
 {{#if sidebar.comments}}
-    <div class="card mt-2 custom-card">
-        <div class="card-header text-white custom-card-h">
-            <h5><i class="fas fa-comments"></i> Latest comments</h5>
-        </div>
-        <div class="card-body text-white">
-            {{#each sidebar.comments}}
-                <div class="row mb-2">
-                    <div class="col">
-                        <a href="/images/{{image.uniqueId}}">
-                            <img src="/public/upload/{{image.fileName}}" class="img-thumbnail w-70 h-70 custom-img">
-                        </a>
-                    </div>
-                    <div class="col">
-                        <blockquote class="w-100 p-1">
-                            <p>{{comment}}</p>
-                            <footer class="blockquote-footer">
-                                {{#each comments.usern}}<span>{{firstName}}</span>{{/each}}
-                                <span>{{timeAgo timestamp}}</span>
-                            </footer>
-                        </blockquote>
-                    </div>
-                </div>
-            {{/each}}
-        </div>
+<div class="card mt-2 custom-card">
+    <div class="card-header text-white custom-card-h" data-toggle="collapse" data-target="#collapseComments" 
+        aria-colspan="collapseComments" aria-expanded="false">
+        <h5 class="card-collapse-h"><i class="fas fa-comments"></i> Latest comments</h5>
+        <h3 class="card-collapse-btn">+</h3>
     </div>
+    <div class="card-body text-white collapse" id="collapseComments">
+        {{#each sidebar.comments}}
+        <div class="row mb-2">
+            <div class="col">
+                <a href="/images/{{image.uniqueId}}">
+                    <img src="/public/upload/{{image.fileName}}" class="img-thumbnail w-70 h-70 custom-img">
+                </a>
+            </div>
+            <div class="col">
+                <blockquote class="w-100 p-1">
+                    <p>{{comment}}</p>
+                    <footer class="blockquote-footer">
+                        {{#each comments.usern}}<span>{{firstName}}</span>{{/each}}
+                        <span>{{timeAgo timestamp}}</span>
+                    </footer>
+                </blockquote>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
 {{/if}}

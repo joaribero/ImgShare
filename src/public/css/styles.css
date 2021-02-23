@@ -25,6 +25,12 @@ body {
     border-radius: 10px;
 }
 
+.img-sidebar {
+    width: 20%;
+    height: 27%;
+    border-radius: 10px;
+}
+
 .img-card {
     align-items: center;
     justify-content: center;
@@ -32,6 +38,10 @@ body {
     border-radius: 10px;
     background: rgba(0, 0, 0, 0.2);
     border: solid 1px rgba(245, 245, 245, 0.2);
+}
+
+.img-card:hover{
+    border: solid 1px rgba(245, 245, 245, 0.5);
 }
 
 .navbar-custom {
@@ -70,6 +80,18 @@ body {
 .image-preview__image {
     display: none;
     width: 100%;
+}
+
+.card-collapse-h {
+    display: inline;
+    cursor: pointer;
+}
+.card-collapse-btn {
+    display: inline;
+    font-size: large;
+    font-weight: bold;
+    float: right;
+    cursor: pointer;
 }
 
 .heart i.fa-heart {
