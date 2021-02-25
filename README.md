@@ -15,3 +15,5 @@ That is why I'll probably not continue improving this project anymore in the fut
     1. >npm install :all
     2. >npm start  
 4. Go to >localhost:3000
+
+P/D: You can always ask me to give you an user to connect to my MongoAtlas cluster and see the pictures I upload during the make of this project :) Sent me and email to joaquin.ribero.96@gmail.com and I reply to you as soon as I can.
