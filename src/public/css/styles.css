@@ -15,6 +15,11 @@ body {
     background-color: rgba(245, 245, 245, 0.2);
 }
 
+.custom-card-h.collapsed{
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
 .custom-card-h {
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
