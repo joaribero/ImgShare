@@ -1,5 +1,8 @@
+const dotenv = require ('dotenv').config();
 const express = require('express');
 const config = require('./server/config');
+
+console.log(process.env.PORT);
 
 //Database
 require('./database');
