@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom">
     <a class="navbar-brand" href="/">
         <img src="/public/img/imgshare-logo.png" alt="imgShare">
     </a>
@@ -7,10 +7,10 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="navbar-collapse collapse" id="navbarColor02" style="">
+    <div class="navbar-collapse collapse" id="navbarColor03" style="">
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search">
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            <button class="btn btn-secondary my-2 my-sm-0 btn-header" type="submit">Search</button>
         </form>
         <ul class="navbar-nav ml-auto mr-5">
             {{#if user}}
@@ -27,7 +27,7 @@
             </li>
             {{else}}
             <li class="nav-item">
-                <a href="/signin" class="nav-link text-uppercase btn btn-outline-info"> Login</a>
+                <a href="/signin" class="nav-link text-uppercase btn btn-info"> Login</a>
             </li>
             {{/if}}
         </ul>
